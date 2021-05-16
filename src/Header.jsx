@@ -7,10 +7,12 @@ const Header = () => {
   return (
     <Container>
       <HeaderLogo>
-        <img
-          src="https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png"
-          alt="amazon"
-        />
+        <Link to="/">
+          <img
+            src="https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png"
+            alt="amazon"
+          />
+        </Link>
       </HeaderLogo>
       <HeaderOptionAdress>
         <LocationOn />
@@ -100,6 +102,7 @@ const HeaderSearch = style.div`
 const HeaderSearchInput = style.input`
   flex-grow: 1;
   border: 0;
+  font-size: 16px;
   :focus {
     outline: none
   }
