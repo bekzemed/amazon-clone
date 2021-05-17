@@ -27,7 +27,7 @@ const Login = ({ setUser }) => {
       <Content>
         <AmazonLogo
           src={
-            'https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png'
+            'http://media.corporate-ir.net/media_files/IROL/17/176060/Oct18/Amazon%20logo.PNG'
           }
         />
         <h1>Sign into Amazon</h1>
