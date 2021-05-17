@@ -24,12 +24,11 @@ function App() {
   useEffect(() => {
     getCartItems();
   }, []);
-  console.log(cartItems);
 
   return (
     <Router>
       <Container>
-        <Header />
+        <Header cartItems={cartItems} />
         <Switch>
           <Route
             exact

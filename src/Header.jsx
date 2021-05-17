@@ -3,7 +3,17 @@ import style from 'styled-components';
 import { Search, ShoppingBasket, LocationOn } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ cartItems }) => {
+  const getCount = () => {
+    let count = 0;
+
+    cartItems.forEach(item => {
+      count += item.product.quantity;
+    });
+
+    return count;
+  };
+
   return (
     <Container>
       <HeaderLogo>
@@ -43,7 +53,7 @@ const Header = () => {
         <HeaderOptionCart>
           <Link to="/cart">
             <ShoppingBasket />
-            <CartCount>4</CartCount>
+            <CartCount>{getCount().toString()}</CartCount>
           </Link>
         </HeaderOptionCart>
       </HeaderNavItem>
