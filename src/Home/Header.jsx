@@ -3,7 +3,7 @@ import style from 'styled-components';
 import { Search, ShoppingBasket, LocationOn } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
-const Header = ({ cartItems }) => {
+const Header = ({ cartItems, user, signOut }) => {
   const getCount = () => {
     let count = 0;
 
@@ -40,8 +40,8 @@ const Header = ({ cartItems }) => {
       </HeaderSearch>
 
       <HeaderNavItem>
-        <HeaderOption>
-          <OptionLineOne>Hello, Nazariy</OptionLineOne>
+        <HeaderOption onClick={signOut}>
+          <OptionLineOne>Hello, {user.name}</OptionLineOne>
           <OptionLineTwo>Account & Lists</OptionLineTwo>
         </HeaderOption>
 
@@ -88,7 +88,7 @@ const HeaderOptionAdress = style.div`
 `;
 
 const OptionLineOne = style.div`
-  display: block
+  display: block;
 `;
 
 const OptionLineTwo = style.div`
@@ -135,8 +135,7 @@ const HeaderNavItem = style.div`
 
 const HeaderOption = style.div`
   padding: 10px 9px;
-
-
+  cursor: pointer
 `;
 
 const HeaderOptionCart = style.div`

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Star } from '@material-ui/icons';
-import { db } from './firebase';
+import { db } from '../firebase';
 
 const Product = ({ product: { name, price, rating, image }, id }) => {
   const addToCart = () => {

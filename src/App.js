@@ -1,14 +1,17 @@
 import './App.css';
-import Cart from './Cart';
-import Header from './Header';
-import Home from './Home';
+import Cart from './Cart/Cart';
+import Header from './Home/Header';
+import Home from './Home/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { db } from './firebase';
+import { db, auth } from './firebase';
+import Login from './auth/Login';
 
 function App() {
+  const userLocalStorage = JSON.parse(localStorage.getItem('user'));
   const [cartItems, setCartItems] = useState([]);
+  const [user, setUser] = useState(userLocalStorage);
 
   const getCartItems = () => {
     db.collection('cartitems').onSnapshot(snapshot => {
@@ -21,23 +24,34 @@ function App() {
     });
   };
 
+  const signOut = () => {
+    auth.signOut().then(() => {
+      setUser(null);
+      localStorage.removeItem('user');
+    });
+  };
+
   useEffect(() => {
     getCartItems();
   }, []);
 
   return (
     <Router>
-      <Container>
-        <Header cartItems={cartItems} />
-        <Switch>
-          <Route
-            exact
-            path="/cart"
-            component={() => <Cart cartItems={cartItems} />}
-          />
-          <Route exact path="/" component={Home} />
-        </Switch>
-      </Container>
+      {!user ? (
+        <Login setUser={setUser} />
+      ) : (
+        <Container>
+          <Header user={user} signOut={signOut} cartItems={cartItems} />
+          <Switch>
+            <Route path="/cart">
+              <Cart cartItems={cartItems} />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Container>
+      )}
     </Router>
   );
 }

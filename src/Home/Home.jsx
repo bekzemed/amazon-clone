@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Product from './Product';
-import { db } from './firebase';
+import Product from '../Home/Product';
+import { db } from '../firebase';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -42,6 +42,7 @@ export default Home;
 const Container = styled.div`
   max-width: 1500px;
   margin: auto;
+  height: 100vh;
 `;
 
 const Banner = styled.div`
