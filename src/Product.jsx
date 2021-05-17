@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Star } from '@material-ui/icons';
 
 const Product = () => {
   return (
     <Container>
       <Title>Ipad Pro</Title>
       <Price>$1449</Price>
-      <Rating>⭐️⭐️⭐️⭐️⭐️</Rating>
+      <Rating>
+        <Star />
+        <Star />
+        <Star />
+        <Star />
+        <Star />
+      </Rating>
       <Image src="https://images-na.ssl-images-amazon.com/images/I/81SGb5l%2BlZL._AC_SX342_.jpg" />
       <ActionSection>
         <AddToCartButton>Add To Cart</AddToCartButton>
@@ -35,7 +42,10 @@ const Price = styled.span`
   margin-top: 3px;
 `;
 
-const Rating = styled.div``;
+const Rating = styled.div`
+  margin-bottom: 10px;
+  color: #f0c14b;
+`;
 
 const Image = styled.img`
   max-height: 200px;
@@ -48,6 +58,7 @@ const AddToCartButton = styled.button`
   background-color: #f0c14b;
   border: 2px solid #a88734;
   border-radius: 2px;
+  cursor: pointer;
 `;
 
 const ActionSection = styled.div`
