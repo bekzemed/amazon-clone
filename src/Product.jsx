@@ -1,22 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Star } from '@material-ui/icons';
+import { db } from './firebase';
 
-const Product = () => {
+const Product = ({ product: { name, price, rating, image }, id }) => {
+  const addToCart = () => {
+    const cartItem = db.collection('cartitems').doc(id);
+    cartItem.get().then(doc => {
+      console.log(doc);
+      if (doc.exists) {
+        cartItem.update({ quantity: doc.data().quantity + 1 });
+      } else {
+        db.collection('cartitems').doc(id).set({
+          name: name,
+          images: image,
+          price: price,
+          quantity: 1,
+        });
+      }
+    });
+  };
+
   return (
     <Container>
-      <Title>Ipad Pro</Title>
-      <Price>$1449</Price>
+      <Title>{name}</Title>
+      <Price>${price}</Price>
       <Rating>
-        <Star />
-        <Star />
-        <Star />
-        <Star />
-        <Star />
+        {Array(rating)
+          .fill()
+          .map((_, index) => (
+            <span key={index}>
+              <Star />
+            </span>
+          ))}
       </Rating>
-      <Image src="https://images-na.ssl-images-amazon.com/images/I/81SGb5l%2BlZL._AC_SX342_.jpg" />
+      <Image src={image} />
       <ActionSection>
-        <AddToCartButton>Add To Cart</AddToCartButton>
+        <AddToCartButton onClick={addToCart}>Add To Cart</AddToCartButton>
       </ActionSection>
     </Container>
   );

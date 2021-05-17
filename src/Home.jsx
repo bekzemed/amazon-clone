@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { db } from './firebase';
@@ -9,18 +9,29 @@ const Home = () => {
   const getProducts = () => {
     let tempProducts = [];
     db.collection('products').onSnapshot(snapshot => {
-      tempProducts = snapshot.docs.map(doc => doc.data());
-      console.log(tempProducts);
+      tempProducts = snapshot.docs.map(doc => ({
+        id: doc.id,
+        product: doc.data(),
+      }));
+
+      setProducts(tempProducts);
     });
   };
 
-  getProducts();
+  useEffect(() => {
+    getProducts();
+    console.log('hello');
+  }, []);
+
   return (
     <Container>
       <Banner></Banner>
       <Content>
-        <Product />
-        <Product />
+        {products.map(product => (
+          <Product key={product.id} product={product.product} id={product.id} />
+        ))}
+        {/* <Product />
+        <Product /> */}
       </Content>
     </Container>
   );
